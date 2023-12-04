@@ -8,7 +8,6 @@ const addTransaction = async (payload) => {
     return await BaseAPI.post("/document/createorupdate/users", payload)
 }
 
-
 const transaction = {
     addTransaction,
 }
