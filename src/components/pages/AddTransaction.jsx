@@ -62,7 +62,6 @@ export default function AddTransactionPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-3xl shadow-xl py-6 px-10 rounded-md">
         <div>
           <h2 className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-900 mb-4">
@@ -112,6 +111,5 @@ export default function AddTransactionPage() {
           <LoadingButton isLoading={isLoading}>Submit</LoadingButton>
         </form>
       </div>
-    </div>
   );
 }

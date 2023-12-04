@@ -3,7 +3,7 @@ import { useAuthContext } from "../../auth/AuthProvider";
 import { getTransactions } from "../../services/utilities/helper.js";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Table from "../Table.jsx";
+import TransactionTable from "../TransactionTable.jsx";
 
 export default function DashboardPage() {
   const { user } = useAuthContext();
@@ -30,7 +30,6 @@ export default function DashboardPage() {
 
   return (
     <>
-      <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="flex justify-between">
             <h2 className="text-2xl font-semibold leading-tight">
@@ -45,7 +44,7 @@ export default function DashboardPage() {
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-              <Table
+              <TransactionTable
                 transactions={transactions}
                 fetchTransactions={fetchTransactions}
                 tableLoading={isLoading}
@@ -53,7 +52,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 }

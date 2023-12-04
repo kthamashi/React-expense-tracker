@@ -31,11 +31,10 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const user = await loginUser(loginDetails);
-      if (user) {
-        setAuthDetails(user);
-        toast.success("Logged In!");
-        navigate("/");
-      }
+      setAuthDetails(user);
+      toast.success("Logged In!");
+      if (user.role !== "admin") navigate("/");
+      navigate("/admin/users");
     } catch (e) {
       toast.error(e.message);
     } finally {

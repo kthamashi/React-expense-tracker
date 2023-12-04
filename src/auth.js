@@ -12,10 +12,8 @@ export const loginUser = async (credentials) => {
   try {
     const res = await API.user.getAllUsers();
     const user = res.data.data.find((user) => user.email === credentials.email);
-    console.log(user);
     if (!user) throw new Error("Please register!");
 
-    console.log(user, credentials.password);
     if (user.password !== credentials.password)
       throw new Error("Password is incorrect!");
 

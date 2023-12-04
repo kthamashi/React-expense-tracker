@@ -6,7 +6,8 @@ import LoginPage from "./components/pages/Login";
 import RegisterPage from "./components/pages/Register";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./auth/AuthProvider";
-import AddTransactionPage from "./components/pages/Transaction";
+import AddTransactionPage from "./components/pages/AddTransaction";
+import Users from "./components/pages/Admin/Users";
 
 export default function App() {
   return (
@@ -32,6 +33,14 @@ export default function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/admin/users"
+            element={
+              <RequireAuth>
+                <Users />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Routes>
     </>
@@ -49,8 +58,9 @@ function Layout() {
           </button>
         </li>
       </ul>
-
-      <Outlet />
+      <div className="container mx-auto px-4 sm:px-8">
+        <Outlet />
+      </div>
     </div>
   );
 }

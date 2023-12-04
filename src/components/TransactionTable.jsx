@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import API from "../services/index.js";
 import { useAuthContext } from "../auth/AuthProvider.jsx";
 
-export default function Table({ transactions, fetchTransactions, tableLoading }) {
+export default function TransactionTable({ transactions, fetchTransactions, tableLoading }) {
   const { user } = useAuthContext();
   const [loadingIdx, setLoadingIdx] = useState(false);
 
