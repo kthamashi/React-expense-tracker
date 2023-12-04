@@ -1,23 +1,19 @@
 import API from "../index.js";
-import {EnumType} from "./enum.js";
 
 /**
- * Get users expenses
- * @param id
+ * Get user transactions
+ * @param userId
  * @returns {Promise<*|*[]>}
  */
-export const getExpenses = async (id) => {
-    const res = await API.common.getAllDocuments();
-    if (res && res.status === 200) return res.data.data.filter((document) => document.type === EnumType.EXPENSE && document.user_id === id);
-    return [];
-}
+export const getTransactions = async (userId) => {
+  try {
+    const res = await API.user.getAllUsers();
 
-/**
- * Get users income
- * @param id
- * @returns {Promise<*|*[]>}
- */
-export const getIncome = async (id) => {
-    const res = await API.common.getAllDocuments();
-    if (res && res.status === 200) return res.data.data.find((document) => document.type === EnumType.INCOME && document.user_id === id);
-}
+    const users = res.data.data;
+
+    const user = users.find((user) => user._id === userId);
+    return user.transactions;
+  } catch (error) {
+    throw Error("Something went wrong");
+  }
+};

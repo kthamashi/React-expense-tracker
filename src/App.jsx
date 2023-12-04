@@ -1,12 +1,12 @@
 import * as React from "react";
-import {  Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import RequireAuth from "./auth/RequireAuth";
 import DashboardPage from "./components/pages/Dashboard";
 import LoginPage from "./components/pages/Login";
 import RegisterPage from "./components/pages/Register";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./auth/AuthProvider";
-import AddExpensePage from "./components/pages/Expense.jsx";
+import AddTransactionPage from "./components/pages/Transaction";
 
 export default function App() {
   return (
@@ -24,14 +24,14 @@ export default function App() {
               </RequireAuth>
             }
           />
-            <Route
-                path="/expense/add"
-                element={
-                    <RequireAuth>
-                        <AddExpensePage />
-                    </RequireAuth>
-                }
-            />
+          <Route
+            path="/add-transaction"
+            element={
+              <RequireAuth>
+                <AddTransactionPage />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Routes>
     </>

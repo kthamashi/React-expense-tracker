@@ -49,7 +49,7 @@ const removeUser = async (id) => {
  * Update user
  * @param payload
  */
-const updateUser = async (payload, userId) => {
+const addAndUpdateTransactions = async (payload, userId) => {
   return await BaseAPI.put(`/document/updateOne/users/${userId}`, payload);
 };
 
@@ -57,7 +57,7 @@ const user = {
   getAllUsers,
   getUserDetails,
   removeUser,
-  updateUser,
+  addAndUpdateTransactions,
   register,
 };
 
