@@ -12,6 +12,7 @@ const register = async (payload) => {
     password: payload.password,
     address: payload.address,
     type: payload.type,
+    role: 'user',
     transactions: {
       income: [],
       expenses: [],
