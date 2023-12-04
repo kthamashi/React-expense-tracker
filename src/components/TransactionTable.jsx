@@ -3,7 +3,11 @@ import toast from "react-hot-toast";
 import API from "../services/index.js";
 import { useAuthContext } from "../auth/AuthProvider.jsx";
 
-export default function TransactionTable({ transactions, fetchTransactions, tableLoading }) {
+export default function TransactionTable({
+  transactions,
+  fetchTransactions,
+  tableLoading,
+}) {
   const { user } = useAuthContext();
   const [loadingIdx, setLoadingIdx] = useState(false);
 
@@ -25,20 +29,6 @@ export default function TransactionTable({ transactions, fetchTransactions, tabl
     }
   };
 
-  const getDetails = async (id) => {
-    try {
-      setIsLoading(true);
-      const res = await API.common.getDocumentDetails(id);
-      if (res && res.status === 200) {
-        console.log(res.data.data, "details");
-      }
-    } catch (e) {
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const rows = transactions.map((transaction, idx) => (
     <tr key={idx}>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -56,21 +46,15 @@ export default function TransactionTable({ transactions, fetchTransactions, tabl
         <p
           className={`whitespace-no-wrap capitalize inline-block text-white px-2 py-0.5 rounded-md
                    ${
-                     transaction.category === "income"
+                     transaction.type === "income"
                        ? "bg-green-500"
                        : "bg-red-500"
                    }`}
         >
-          {transaction.category}
+          {transaction.type}
         </p>
       </td>
       <td className="py-2 border-b border-gray-200 bg-white text-sm">
-        {/* <button
-                    className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none mr-4"
-                    onClick={() => getDetails(transaction._id)}
-                  >
-                    View Details
-                  </button> */}
         <button
           className="px-5 py-1 border-red-500 border text-red-500 rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none"
           onClick={() => handleRemove(idx)}

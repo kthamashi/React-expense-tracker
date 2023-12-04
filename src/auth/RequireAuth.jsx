@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "./AuthProvider";
 
-export default function RequireAuth({ children, isAdmin = false }) {
+export default function RequireAuth({ children }) {
   const { user, isStateLoading } = useAuthContext();
   let location = useLocation();
   if (isStateLoading) {

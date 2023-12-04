@@ -32,7 +32,7 @@ export default function AddTransactionPage() {
   const [transaction, setTransaction] = useState({
     transaction_name: "",
     amount: "",
-    category: "income",
+    type: "income",
     created_at: Math.floor(Date.now() / 1000),
   });
 
@@ -53,7 +53,7 @@ export default function AddTransactionPage() {
     };
 
     try {
-      const res = await API.user.addAndUpdateTransactions(payload, user._id);
+      await API.user.addAndUpdateTransactions(payload, user._id);
       toast.success("Transaction was successfully added.");
       navigate("/");
     } catch (e) {
@@ -62,54 +62,56 @@ export default function AddTransactionPage() {
   };
 
   return (
-      <div className="sm:mx-auto sm:w-full sm:max-w-3xl shadow-xl py-6 px-10 rounded-md">
-        <div>
-          <h2 className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-900 mb-4">
-            Add Transaction
-          </h2>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="grid gap-4 grid-cols-2">
-            <div className="form-control w-full col-span-2">
-              <Label name="Name" />
-              <input
-                value={transaction.transaction_name}
-                name="transaction_name"
-                onChange={handleChange}
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                required
-              />
-            </div>
-            <div className="form-control w-full">
-              <Label name="Amount" />
-              <input
-                value={transaction.amount}
-                name="amount"
-                onChange={handleChange}
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                required
-              />
-            </div>
-            <div className="form-control w-full">
-              <Label name="Category" />
-              <select
-                value={transaction.category}
-                name="category"
-                onChange={handleChange}
-                className="select select-bordered w-full max-w-xs"
-              >
-                {CATEGORIES.map((cat) => (
-                  <option key={cat.value} value={cat.value}>{cat.name}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <LoadingButton isLoading={isLoading}>Submit</LoadingButton>
-        </form>
+    <div className="sm:mx-auto sm:w-full sm:max-w-3xl shadow-xl py-6 px-10 rounded-md">
+      <div>
+        <h2 className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-900 mb-4">
+          Add Transaction
+        </h2>
       </div>
+      <form onSubmit={handleSubmit}>
+        <div className="grid gap-4 grid-cols-2">
+          <div className="form-control w-full col-span-2">
+            <Label name="Name" />
+            <input
+              value={transaction.transaction_name}
+              name="transaction_name"
+              onChange={handleChange}
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+          <div className="form-control w-full">
+            <Label name="Amount" />
+            <input
+              value={transaction.amount}
+              name="amount"
+              onChange={handleChange}
+              type="number"
+              placeholder="Type here"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+          <div className="form-control w-full">
+            <Label name="Type" />
+            <select
+              value={transaction.type}
+              name="type"
+              onChange={handleChange}
+              className="select select-bordered w-full max-w-xs"
+            >
+              {CATEGORIES.map((cat) => (
+                <option key={cat.value} value={cat.value}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <LoadingButton isLoading={isLoading}>Submit</LoadingButton>
+      </form>
+    </div>
   );
 }

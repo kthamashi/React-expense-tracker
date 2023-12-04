@@ -42,14 +42,14 @@ export default function App() {
               </RequireAuth>
             }
           />
-            <Route
-                path="/admin/users/add"
-                element={
-                    <RequireAuth>
-                        <AddUserPage />
-                    </RequireAuth>
-                }
-            />
+          <Route
+            path="/admin/users/add"
+            element={
+              <RequireAuth>
+                <AddUserPage />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Routes>
     </>
@@ -57,15 +57,25 @@ export default function App() {
 }
 
 function Layout() {
-  const { logout } = useAuthContext();
+  const { logout, user } = useAuthContext();
   return (
     <div>
       <ul className="flex px-5 py-3 shadow-lg gap-10 justify-end">
-        <li>
-          <button className="btn btn-xs btn-error rounded-sm" onClick={logout}>
-            Sign out
-          </button>
-        </li>
+        {user ? (
+          <>
+            <li className="font-medium">
+              {user.first_name} {user.last_name}
+            </li>
+            <li>
+              <button
+                className="btn btn-xs btn-error rounded-sm"
+                onClick={logout}
+              >
+                Sign out
+              </button>
+            </li>
+          </>
+        ) : null}
       </ul>
       <div className="container mx-auto px-4 sm:px-8">
         <Outlet />
