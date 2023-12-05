@@ -31,6 +31,9 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const user = await loginUser(loginDetails);
+      /**
+       * Like I said, in order for us to make sure that a new user logged in(to authenticate the user), we call the setAuthDetails function. Then it updates the state accordingly and makes sure that the user information and all the functions that it has is available for all the children (ctrl+click to see the implementation of it)
+       */
       setAuthDetails(user);
       toast.success("Logged In!");
       if (user.role !== "admin") navigate("/");

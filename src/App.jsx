@@ -61,6 +61,7 @@ function Layout() {
   return (
     <div>
       <ul className="flex px-5 py-3 shadow-lg gap-10 justify-end">
+        {/* Checks whether a user exists. The only way a user would exist is if a person logs in */}
         {user ? (
           <>
             <li className="font-medium">

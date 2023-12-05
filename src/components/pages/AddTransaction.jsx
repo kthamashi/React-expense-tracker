@@ -1,3 +1,14 @@
+/**
+ * This component is responsible for adding a new transaction
+ * Since we update the user itself, we have to make sure that we have the previous transactions
+ * 
+ * For an example
+ * const currentUserTransactions = [trans1Obj, trans1Obj]
+ * We have to make sure to add the new transaction to this currentUserTransactions array and then update use with that array
+ * So it is something like
+ * API.user.addAndUpdateTransactions[...currentUserTransactions, newTransaction] [refer to handleSubmit method]
+ */
+
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
