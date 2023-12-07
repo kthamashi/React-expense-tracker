@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingButton from "../../ui/LoadingButton";
 import Label from "../../ui/Label";
-import API from "../../../services/index.js";
+import UserApi from "../../../services/user.api";
 
 export default function AddUserPage() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function AddUserPage() {
     async function fetchUserData() {
       try {
         setInitialLoading(true);
-        const res = await API.user.getUserDetails(searchParams.get("id"));
+        const res = await UserApi.getUserDetails(searchParams.get("id"));
         setUser(res.data.data);
       } catch (error) {
         toast.error("Something went wrong");
@@ -54,7 +54,7 @@ export default function AddUserPage() {
       return toast.error("Passwords does not match!");
     setIsLoading(true);
     try {
-      const res = await API.user.register(user);
+      const res = await UserApi.register(user);
       if (res && res.status === 200) {
         toast.success("User was successfully added");
         navigate("/admin/users");
@@ -68,7 +68,7 @@ export default function AddUserPage() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await API.user.addAndUpdateTransactions(user, searchParams.get("id"));
+      await UserApi.addAndUpdateTransactions(user, searchParams.get("id"));
       toast.success("User was successfully updated");
       navigate("/admin/users");
     } catch (e) {

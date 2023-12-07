@@ -1,7 +1,7 @@
 /**
  * This component is responsible for adding a new transaction
  * Since we update the user itself, we have to make sure that we have the previous transactions
- * 
+ *
  * For an example
  * const currentUserTransactions = [trans1Obj, trans1Obj]
  * We have to make sure to add the new transaction to this currentUserTransactions array and then update use with that array
@@ -15,8 +15,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingButton from "../ui/LoadingButton.jsx";
 import Label from "../ui/Label.jsx";
 import { useAuthContext } from "../../auth/AuthProvider.jsx";
-import { getTransactions } from "../../services/utilities/helper.js";
-import API from "../../services/index.js";
+import UserApi from "../../services/user.api.js";
 
 const CATEGORIES = [
   {
@@ -31,11 +30,6 @@ const CATEGORIES = [
 
 export default function AddTransactionPage() {
   const { user } = useAuthContext();
-
-  useEffect(() => {
-    getTransactions(user._id).then(setTransactions);
-  }, [user]);
-
   let navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -46,6 +40,24 @@ export default function AddTransactionPage() {
     type: "income",
     created_at: Math.floor(Date.now() / 1000),
   });
+
+  const getTransactions = async () => {
+    try {
+      const res = await UserApi.getUserDetails(user._id);
+
+      const transactions = res.data.data.transactions;
+
+      return transactions.sort((a, b) =>
+        a.created_at > b.created_at ? -1 : 1
+      );
+    } catch (error) {
+      throw Error("Something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    getTransactions().then(setTransactions);
+  }, [user]);
 
   const handleChange = (evt) => {
     const { value, name } = evt.target;
@@ -64,7 +76,7 @@ export default function AddTransactionPage() {
     };
 
     try {
-      await API.user.addAndUpdateTransactions(payload, user._id);
+      await UserApi.addAndUpdateTransactions(payload, user._id);
       toast.success("Transaction was successfully added.");
       navigate("/");
     } catch (e) {

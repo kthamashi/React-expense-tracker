@@ -11,13 +11,19 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getFromLocalStorage, setToLocalStorage } from "../auth";
+
+export const setToLocalStorage = (key, payload) => {
+  localStorage.setItem(key, JSON.stringify(payload));
+};
+
+export const getFromLocalStorage = (key) => {
+  return JSON.parse(localStorage.getItem(key));
+};
 
 function useAuthSource() {
   const [user, setUser] = useState(null);
   const [isStateLoading, setIsStateLoading] = useState(true);
 
-  
   useEffect(() => {
     const user = getFromLocalStorage("user");
     setUser(user);

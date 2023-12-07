@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import API from "../services/index.js";
+import UserApi from "../services/user.api.js";
 import { useAuthContext } from "../auth/AuthProvider.jsx";
 
 export default function TransactionTable({
@@ -19,7 +19,7 @@ export default function TransactionTable({
       const payload = {
         transactions: currentTransactions,
       };
-      await API.user.addAndUpdateTransactions(payload, user._id);
+      await UserApi.addAndUpdateTransactions(payload, user._id);
       await fetchTransactions();
       toast.success("Transaction Deleted Successfully");
     } catch (e) {

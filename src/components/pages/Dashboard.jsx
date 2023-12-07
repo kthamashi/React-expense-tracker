@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useAuthContext } from "../../auth/AuthProvider";
-import { getTransactions } from "../../services/utilities/helper.js";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import TransactionTable from "../TransactionTable.jsx";
+import UserApi from "../../services/user.api.js";
 
 export default function DashboardPage() {
   const { user } = useAuthContext();
@@ -12,6 +12,20 @@ export default function DashboardPage() {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const getTransactions = async () => {
+    try {
+      const res = await UserApi.getUserDetails(user._id);
+      const transactions = res.data.data.transactions;
+
+      return transactions.sort((a, b) =>
+        a.created_at > b.created_at ? -1 : 1
+      );
+    } catch (error) {
+      console.log("pushing error");
+      throw Error("Something went wrong");
+    }
+  };
+
   useEffect(() => {
     fetchTransactions();
   }, [user]);
@@ -19,7 +33,7 @@ export default function DashboardPage() {
   const fetchTransactions = async () => {
     try {
       setIsLoading(true);
-      const transactionResponse = await getTransactions(user._id);
+      const transactionResponse = await getTransactions();
       setTransactions(transactionResponse);
     } catch (e) {
       toast.error("Something went wrong");

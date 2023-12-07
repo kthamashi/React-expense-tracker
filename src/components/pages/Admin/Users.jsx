@@ -1,6 +1,6 @@
 import UserTable from "./components/UserTable";
 import React, { useEffect, useState } from "react";
-import API from "../../../services";
+import UserApi from "../../../services/user.api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ export default function Users() {
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const usersResponse = await API.user.getAllUsers();
+      const usersResponse = await UserApi.getAllUsers();
       setUsers(usersResponse.data.data.filter((user) => user.role === "user"));
     } catch (e) {
       toast.error("Something went wrong");

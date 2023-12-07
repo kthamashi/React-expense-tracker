@@ -30,8 +30,8 @@ const getAllUsers = async () => {
  * @param id
  * @returns {Promise<axios.AxiosResponse<any>>}
  */
-const getUserDetails = async (id) => {
-  return await BaseAPI.get(`document/findOne/users/${id}`);
+const getUserDetails = async (userId) => {
+  return await BaseAPI.get(`document/findOne/users/${userId}`);
 };
 
 /**
@@ -51,7 +51,7 @@ const addAndUpdateTransactions = async (payload, userId) => {
   return await BaseAPI.put(`/document/updateOne/users/${userId}`, payload);
 };
 
-const user = {
+const UserApi = {
   getAllUsers,
   getUserDetails,
   removeUser,
@@ -59,4 +59,4 @@ const user = {
   register,
 };
 
-export default user;
+export default UserApi;

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import API from "../../../../services";
+import UserApi from "../../../../services/user.api";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 
@@ -10,7 +10,7 @@ export default function UserTable({users, tableLoading, fetchUsers}) {
     const handleRemove = async (userId, idx) => {
         try {
             setLoadingIdx(idx);
-            await API.user.removeUser(userId);
+            await UserApi.removeUser(userId);
             await fetchUsers();
             toast.success("User was successfully removed");
         } catch (e) {

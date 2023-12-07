@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import LoadingButton from "../ui/LoadingButton";
 import { useState } from "react";
 import Label from "../ui/Label";
-import { loginUser } from "../../auth";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import UserApi from "../../services/user.api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -24,6 +24,23 @@ export default function LoginPage() {
       ...loginDetails,
       [name]: value,
     });
+  };
+
+  const loginUser = async (credentials) => {
+    try {
+      const res = await UserApi.getAllUsers();
+      const user = res.data.data.find(
+        (user) => user.email === credentials.email
+      );
+      if (!user) throw new Error("Please register!");
+
+      if (user.password !== credentials.password)
+        throw new Error("Password is incorrect!");
+
+      return user;
+    } catch (error) {
+      throw new Error("Something went wrong!");
+    }
   };
 
   const handleSubmit = async (e) => {

@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "../ui/LoadingButton";
 import Label from "../ui/Label";
-import API from "../../services/index.js";
+import UserApi from "../../services/user.api";
 
 export default function RegisterPage() {
   let navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function RegisterPage() {
       return toast.error("Passwords does not match!");
     setIsLoading(true);
     try {
-      const res = await API.user.register(user);
+      const res = await UserApi.register(user);
       if (res && res.status === 200) {
         toast.success("Registration Successful!");
         navigate("/login");
