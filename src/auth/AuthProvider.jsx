@@ -1,9 +1,3 @@
-/**
- * This AuthProvider file makes sure that app has acccess to the logged in user information
- * useContext is a react hook that is used to share state between deeply nested components or components in general. We can avoid prop drilling when useContext is used.
- * All the child components that are wrapped in by this comonent, has access to the state that this component has!
- */
-
 import {
   createContext,
   useCallback,
@@ -30,11 +24,6 @@ function useAuthSource() {
     setIsStateLoading(false);
   }, []);
 
-  /**
-   * Does 2 things
-   * 1. Sets the user to the state
-   * 2. Saves the state in the local storage to persist the user on refresh
-   */
   const setAuthDetails = useCallback((user) => {
     setUser(user);
     setToLocalStorage("user", user);

@@ -1,11 +1,3 @@
-/**
- * This component is called a higher order component
- * We use higher order components to mainly share logic
- *
- * In this scenario,  we make sure to check whether the user has logged in, and checks the user role as well!
- * Depending on the information that is retrived, user is directed to the correct place
- */
-
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "./AuthProvider";
 

@@ -42,13 +42,6 @@ export default function DashboardPage() {
     }
   };
 
-  /**
-   * useMemo is used to memoize the value that is calculated.
-   * The reason why we use useMemo is to make sure that it only runs when the depencies are changed.
-   * When the transactions becomes alot, this can be an expensive calculation
-   * useMemo avoids unwanted re-runs.
-   */
-
   const currentBalance = useMemo(() => {
     return transactions.reduce((acc, curr) => {
       if (curr.type === "income") {
