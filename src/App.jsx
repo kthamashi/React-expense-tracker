@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./auth/AuthProvider";
 import AddTransactionPage from "./components/pages/AddTransaction";
 import Users from "./components/pages/Admin/Users";
-import AddUserPage from "./components/pages/Admin/AddUser.jsx";
+import AddOrUpdateUser from "./components/pages/Admin/AddOrUpdateUser";
 
 export default function App() {
   return (
@@ -46,7 +46,7 @@ export default function App() {
             path="/admin/users/add"
             element={
               <RequireAuth>
-                <AddUserPage />
+                <AddOrUpdateUser />
               </RequireAuth>
             }
           />

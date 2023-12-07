@@ -5,7 +5,7 @@ import LoadingButton from "../../ui/LoadingButton";
 import Label from "../../ui/Label";
 import UserApi from "../../../services/user.api";
 
-export default function AddUserPage() {
+export default function AddOrUpdateUser() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -48,17 +48,22 @@ export default function AddUserPage() {
     });
   };
 
+  const setUserPayload = () => {
+    const payload = { ...user };
+    delete payload.confirm_password;
+    return payload;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user.password !== user.confirm_password)
       return toast.error("Passwords does not match!");
-    setIsLoading(true);
     try {
-      const res = await UserApi.register(user);
-      if (res && res.status === 200) {
-        toast.success("User was successfully added");
-        navigate("/admin/users");
-      }
+      setIsLoading(true);
+      const payload = setUserPayload();
+      await UserApi.register(payload);
+      toast.success("User was successfully added");
+      navigate("/admin/users");
     } catch (e) {
       toast.error(e.message);
     }
@@ -66,9 +71,10 @@ export default function AddUserPage() {
 
   const updateUserDetails = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     try {
-      await UserApi.addAndUpdateTransactions(user, searchParams.get("id"));
+      setIsLoading(true);
+      const payload = setUserPayload();
+      await UserApi.addAndUpdateTransactions(payload, searchParams.get("id"));
       toast.success("User was successfully updated");
       navigate("/admin/users");
     } catch (e) {

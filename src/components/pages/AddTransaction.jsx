@@ -45,11 +45,7 @@ export default function AddTransactionPage() {
     try {
       const res = await UserApi.getUserDetails(user._id);
 
-      const transactions = res.data.data.transactions;
-
-      return transactions.sort((a, b) =>
-        a.created_at > b.created_at ? -1 : 1
-      );
+      return res.data.data.transactions;
     } catch (error) {
       throw Error("Something went wrong");
     }
