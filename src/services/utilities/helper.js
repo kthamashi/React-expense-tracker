@@ -7,11 +7,10 @@ import API from "../index.js";
  */
 export const getTransactions = async (userId) => {
   try {
-    const res = await API.user.getAllUsers();
+    const res = await API.user.getUserDetails(userId);
 
-    const users = res.data.data;
+    const user = res.data.data;
 
-    const user = users.find((user) => user._id === userId);
     return user.transactions.sort((a, b) =>
       a.created_at > b.created_at ? -1 : 1
     );
